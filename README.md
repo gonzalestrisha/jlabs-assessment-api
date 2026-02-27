@@ -8,11 +8,12 @@ Backend API for the JLabs Full Stack Assessment. Built with **Node.js**, **Expre
 
 | Layer    | Technology                        |
 |----------|-----------------------------------|
-| Runtime  | Node.js v20                       |
+| Runtime  | Node.js v24.14.0                  |
 | Framework| Express                           |
 | Database | Supabase (PostgreSQL)             |
 | Auth     | bcryptjs + JSON Web Tokens (JWT)  |
-| Container|ect Structure
+
+## Project Structure
 
 ```
 jlabs-assessment-api/
@@ -20,7 +21,8 @@ jlabs-assessment-api/
 ├── seedUser.js           # Database seeder (test user)
 ├── supabaseClient.js     # Supabase client configuration and initialization 
 ├── package.json
-├── dock # Environment variables (not committed)
+└── .env                  
+
 ```
 
 ---
