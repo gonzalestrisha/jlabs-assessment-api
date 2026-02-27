@@ -37,8 +37,6 @@ jlabs-assessment-api/
 
 ### 1. Clone the repositories
 
-Both repos must be cloned into the **same parent folder** for Docker Compose to work. If running without Docker, only the API repo is needed here.
-
 ```bash
 # Clone API repo
 git clone https://github.com/gonzalestrisha/jlabs-assessment-api
@@ -152,4 +150,3 @@ Health check.
 | User seeder for test login | ✅ |
 | Dependencies declared in `package.json` | ✅ |
 | Runnable on other local machines | ✅ |
-| Docker support (bonus) | ✅ |
