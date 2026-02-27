@@ -1,8 +1,4 @@
-console.log("Looking for .env at:", process.cwd());
-
 require('dotenv').config();
-console.log("SUPABASE_URL is:", process.env.SUPABASE_URL ? "FOUND" : "NOT FOUND");
-
 const express = require('express');
 const cors = require('cors');
 const supabase = require('./supabaseClient');
