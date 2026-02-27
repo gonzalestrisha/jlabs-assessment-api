@@ -1,61 +1,155 @@
 # jlabs-assessment-api
 
-This is the backend API for the jlabs assessment project, built with Node.js, Express, and Supabase (PostgreSQL).
+Backend API for the JLabs Full Stack Assessment. Built with **Node.js**, **Express**, and **Supabase (PostgreSQL)** — handles authentication, JWT issuance, and serves as the login endpoint for the web client.
+
+---
+
+## Tech Stack
+
+| Layer    | Technology                        |
+|----------|-----------------------------------|
+| Runtime  | Node.js v20                       |
+| Framework| Express                           |
+| Database | Supabase (PostgreSQL)             |
+| Auth     | bcryptjs + JSON Web Tokens (JWT)  |
+| Container|ect Structure
+
+```
+jlabs-assessment-api/
+├── index.js              # Express app entry point
+├── seedUser.js           # Database seeder (test user)
+├── supabaseClient.js     # Supabase client configuration and initialization 
+├── package.json
+├── dock # Environment variables (not committed)
+```
+
+---
 
 ## Prerequisites
-- Node.js (v18 or higher recommended)
-- npm (comes with Node.js)
-- Supabase project (credentials required in .env)
 
-## Setup Instructions
+- [Node.js](https://nodejs.org/) v24.14.0 (LTS)
+- [npm](https://www.npmjs.com/) (bundled with Node.js)
+- A [Supabase](https://supabase.com/) project with a `users` table
 
-### 1. Clone the repository
-```
-git clone https://github.com/gonzalestrisha/jlabs-assessment-api/
+---
+
+## Run with Node.js 
+
+### 1. Clone the repositories
+
+Both repos must be cloned into the **same parent folder** for Docker Compose to work. If running without Docker, only the API repo is needed here.
+
+```bash
+# Clone API repo
+git clone https://github.com/gonzalestrisha/jlabs-assessment-api
 cd jlabs-assessment-api
 ```
 
 ### 2. Install dependencies
-```
+
+All external libraries are declared in `package.json`. Install with:
+
+```bash
 npm install
 ```
 
+> Dependencies include: `express`, `@supabase/supabase-js`, `bcryptjs`, `jsonwebtoken`, `dotenv`, `cors`
+
 ### 3. Configure environment variables
-Create a `.env` file in the root of this folder with the following content:
 
-```
+Create a `.env` file in the project root:
+
+```env
 PORT=8000
-SUPABASE_URL='https://thernlxqzsgdzztzlkva.supabase.co'
-SUPABASE_KEY='sb_publishable_2EXrbZKR9LPwMHfkZZZPFw_Ne1q4orX'
+SUPABASE_URL=https://thernlxqzsgdzztzlkva.supabase.co
+SUPABASE_KEY=sb_publishable_2EXrbZKR9LPwMHfkZZZPFw_Ne1q4orX
+JWT_SECRET=your_jwt_secret_here
 ```
 
-### 4. Seed the database with a test user
-This will create a test user in your Supabase `users` table.
-```
+### 4. Seed the database
+
+This creates a test user in the Supabase `users` table that can be used to log in:
+
+```bash
 node seedUser.js
 ```
-Note that there is already 1 row in the `users` table. Check the `seedUser.js` file as reference.
-<br>
-Feel free to change the one in the code if you want to test if it works.
+
+> A seed user already exists in the database. Check `seedUser.js` for the credentials. You can modify and re-run the seeder to create a new user.
 
 ### 5. Start the server
-```
+
+```bash
 node index.js
 ```
 
-The API will be available at `http://localhost:8000` by default.
+API is now running at **`http://localhost:8000`**
+
+---
 
 ## API Endpoints
 
-### POST /api/login
-Authenticate user and return JWT token.
-- Request Body: `{ "email": "test@example.com", "password": "password123" }`
-- Response: `{ "token": "<JWT token>" }`
+### `POST /api/login`
+Authenticates a user and returns a signed JWT token.
 
-### GET /api/profile
-Get authenticated user's profile info.
-- Headers: `Authorization: Bearer <JWT token>`
-- Response: `{ "user": { "id": ..., "email": ... } }`
+**Request body:**
+```json
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+```
 
-### GET /
-Health check endpoint. Returns: `API is running`
+**Success response `200`:**
+```json
+{
+  "token": "<JWT>"
+}
+```
+
+**Error response `401`:**
+```json
+{
+  "message": "Invalid credentials."
+}
+```
+
+---
+
+### `GET /api/profile`
+Returns the authenticated user's profile. Requires a valid JWT.
+
+**Headers:**
+```
+Authorization: Bearer <JWT>
+```
+
+**Success response `200`:**
+```json
+{
+  "user": {
+    "id": 1,
+    "email": "test@example.com"
+  }
+}
+```
+
+---
+
+### `GET /`
+Health check.
+
+**Response:** `API is running`
+
+---
+
+## Assessment Checklist
+
+| Requirement | Status |
+|---|---|
+| API Repository (Node.js) | ✅ |
+| Login endpoint validates credentials from database | ✅ |
+| Returns JWT token on successful login | ✅ |
+| User seeder for test login | ✅ |
+| Dependencies declared in `package.json` | ✅ |
+| Runnable on other local machines | ✅ |
+| Docker support (bonus) | ✅ |
