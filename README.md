@@ -11,7 +11,7 @@ This is the backend API for the jlabs assessment project, built with Node.js, Ex
 
 ### 1. Clone the repository
 ```
-git clone <repo-url>
+git clone https://github.com/gonzalestrisha/jlabs-assessment-api/
 cd jlabs-assessment-api
 ```
 
@@ -25,25 +25,20 @@ Create a `.env` file in the root of this folder with the following content:
 
 ```
 PORT=8000
-SUPABASE_URL='https://your-supabase-url.supabase.co'
-SUPABASE_KEY='your-supabase-service-role-key'
+SUPABASE_URL='https://thernlxqzsgdzztzlkva.supabase.co'
+SUPABASE_KEY='sb_publishable_2EXrbZKR9LPwMHfkZZZPFw_Ne1q4orX'
 ```
-
-- Replace the values with your actual Supabase project credentials.
-- Never commit your real keys to a public repo.
 
 ### 4. Seed the database with a test user
 This will create a test user in your Supabase `users` table.
 ```
 node seedUser.js
 ```
-- Make sure your Supabase project has a `users` table with columns: `id` (auto), `email` (text), `password_hash` (text).
+Note that there is already 1 row in the `users` table. Check the `seedUser.js` file as reference.
+<br>
+Feel free to change the one in the code if you want to test if it works.
 
 ### 5. Start the server
-```
-npm run dev
-```
-Or, for production:
 ```
 node index.js
 ```
@@ -64,15 +59,3 @@ Get authenticated user's profile info.
 
 ### GET /
 Health check endpoint. Returns: `API is running`
-
----
-
-## Troubleshooting
-- Ensure your `.env` file is present and correct.
-- Ensure your Supabase project and table are set up.
-- If you change dependencies, re-run `npm install`.
-- For any issues, check the console output for errors.
-
----
-
-For Docker setup, see instructions in this README once available.
